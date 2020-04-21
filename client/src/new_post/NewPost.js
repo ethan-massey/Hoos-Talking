@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { TextArea } from "grommet";
+import { TextArea, TextInput, Button } from "grommet";
 import "../App.css";
 
 function NewPost() {
@@ -15,32 +15,28 @@ function NewPost() {
       title: postInfo.title,
       content: postInfo.content,
     });
+    setPostInfo({ title: "", content: "" });
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label>
-          Title:
-          <input
-            type="text"
-            value={postInfo.title}
-            onChange={(e) =>
-              setPostInfo({ ...postInfo, title: e.target.value })
-            }
-          />
-        </label>
-        <label>
-          Content:
-          <TextArea
-            className="Post-TextBox"
-            type="text"
-            value={postInfo.content}
-            onChange={(e) =>
-              setPostInfo({ ...postInfo, content: e.target.value })
-            }
-          />
-        </label>
+        <TextArea
+          type="text"
+          placeholder="Title"
+          value={postInfo.title}
+          onChange={(e) => setPostInfo({ ...postInfo, title: e.target.value })}
+        />
+
+        <TextArea
+          className="Post-TextBox"
+          placeholder="What's up?"
+          type="text"
+          value={postInfo.content}
+          onChange={(e) =>
+            setPostInfo({ ...postInfo, content: e.target.value })
+          }
+        />
         <input type="submit" value="Post!" />
       </form>
     </div>

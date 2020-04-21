@@ -7,7 +7,7 @@ var bodyParser = require("body-parser");
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Tepmurt1",
+  password: "---",
   database: "forum",
 });
 
@@ -40,14 +40,12 @@ app.get("/", function (req, res) {
 // post request to post forum post to MySQL
 app.post("/post_forumpost", function (req, res) {
   db.query(
-    `INSERT INTO posts (user_id, post_title, post_text, post_date) VALUES (1, '${req.body.title}', '${req.body.content}', CURRENT_TIMESTAMP());`,
+    `INSERT INTO posts (user_id, post_title, post_text, post_date) VALUES (1, ${mysql.escape(
+      req.body.title
+    )}, ${mysql.escape(req.body.content)}, CURRENT_TIMESTAMP());`,
     (err, results) => {
       if (err) {
         return console.log(err);
-      } else {
-        return res.json({
-          data: results,
-        });
       }
     }
   );
